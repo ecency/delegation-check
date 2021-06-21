@@ -1,0 +1,20 @@
+{
+  "name": "delegation-check",
+  "version": "1.0.0",
+  "description": "check delegations and return idle ones",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecency",
+    "hive",
+    "delegation",
+    "onboarding"
+  ],
+  "author": "Ecency",
+  "license": "MIT",
+  "dependencies": {
+    "@hiveio/dhive": "^0.14.12"
+  }
+}
