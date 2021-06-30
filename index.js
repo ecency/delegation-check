@@ -4,7 +4,7 @@ const client = new dhive.Client(['https://api.hive.blog', 'https://rpc.ecency.co
 
 const delegator = process.env['DELEGATOR'] || 'ecency'
 const pkey = dhive.PrivateKey.fromString(process.env['PKEY'] || '5JkC...')
-const damount = process.env['DAMOUNT'] || '9500.123456 VESTS'
+const damount = parseFloat(process.env['DAMOUNT']) || parseFloat('9500.123456 VESTS')
 const dday = 1000 * 60 * 60 * 24
 
 async function main() {
@@ -23,7 +23,7 @@ async function main() {
       const delegationTime = new Date(`${element.min_delegation_time}.000Z`).getTime()
       
       // check if delegation is more than 7 days old and if it is onboarding delegation
-      if (currentTime-delegationTime > 7*dday && element.vesting_shares === damount) {
+      if (currentTime-delegationTime > 7*dday && (parseFloat(element.vesting_shares) === damount || parseFloat(element.vesting_shares) === 2*damount)) {
         const [account] = await client.database.call('get_accounts', [
           [element.delegatee]
         ])
