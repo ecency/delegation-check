@@ -15,6 +15,6 @@
   "author": "Ecency",
   "license": "MIT",
   "dependencies": {
-    "@hiveio/dhive": "^0.14.12"
+    "@hiveio/dhive": "^1.0.1"
   }
 }
