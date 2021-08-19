@@ -51,7 +51,7 @@ async function main() {
       console.log(ops)
       client.broadcast.sendOperations(ops, pkey).then(
         function(result) {
-          if (result && result.block_num) {
+          if (result && result.tx) {
             console.log('delegations updated')
           }
         },
