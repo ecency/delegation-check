@@ -2,8 +2,8 @@ const dhive = require('@hiveio/dhive')
 // setup the dhive client
 const client = new dhive.Client(['https://rpc.ecency.com', 'https://api.hive.blog', 'https://api.deathwing.me'])
 
-const delegator = process.env['DELEGATOR'] || 'ecency'
-const pkey = dhive.PrivateKey.fromString(process.env['PKEY'] || '5JkC...')
+const delegator = process.env['DELEGATOR'] || 'good-karma'
+const pkey = dhive.PrivateKey.fromString(process.env['PKEY'] || '5JSrqca9aLcTbz7SxWty3w1Nbz8LM9264VtjmvuHmYZ1qTr7jgp')
 const damount = parseFloat(process.env['DAMOUNT']) || parseFloat('9500.123456 VESTS')
 const dday = 1000 * 60 * 60 * 24
 
@@ -63,16 +63,20 @@ async function main() {
     }
     if (ops.length > 0) {
       console.log(ops.length + ' ops');
-      client.broadcast.sendOperations(ops, pkey).then(
-        function(result) {
-          if (result && result.tx) {
-            console.log('delegations updated')
+      let i,j, temporary, chunk = 500;
+      for (i = 0,j = ops.length; i < j; i += chunk) {
+        temporary = ops.slice(i, i + chunk);
+        client.broadcast.sendOperations(temporary, pkey).then(
+          function(result) {
+            if (result && result.tx) {
+              console.log('delegations updated')
+            }
+          },
+          function(error) {
+            console.log(`error happened with transaction`, error)
           }
-        },
-        function(error) {
-          console.log(`error happened with transaction`, error)
-        }
-      );
+        );
+      }
     }
   }
   //console.log(delegations)
