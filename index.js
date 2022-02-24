@@ -63,7 +63,7 @@ async function main() {
     }
     if (ops.length > 0) {
       console.log(ops.length + ' ops');
-      let i,j, temporary, chunk = 500;
+      let i,j, temporary, chunk = 50;
       for (i = 0,j = ops.length; i < j; i += chunk) {
         temporary = ops.slice(i, i + chunk);
         client.broadcast.sendOperations(temporary, pkey).then(
