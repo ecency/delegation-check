@@ -15,7 +15,9 @@ async function main() {
     try {
       delegation = await client.database.call("get_vesting_delegations", [delegator, from, 1000])
       leng = delegation.length;
-      from = delegation[leng - 1].delegatee;
+      if (leng > 0) {
+        from = delegation[leng - 1].delegatee;  
+      }
       delegations = delegations.concat(delegation);
     } catch (error) {
       console.log('error fetching delegations', error)
@@ -26,7 +28,7 @@ async function main() {
   let ops = []
   let accounts = []
 
-  if (delegations) {
+  if (delegations && from) {
     console.log('delegations', delegations.length)
     for (let index = 0; index < delegations.length; index++) {
       const element = delegations[index]
